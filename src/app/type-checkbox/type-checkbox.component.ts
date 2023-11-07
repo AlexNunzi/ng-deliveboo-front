@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Type } from './type.model';
 
 @Component({
   selector: 'app-type-checkbox',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./type-checkbox.component.scss']
 })
 export class TypeCheckboxComponent {
+  @Input () type: Type;
+
+  constructor() {}
 
 }

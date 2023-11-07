@@ -1,7 +1,10 @@
 <app-carousel-jumbo></app-carousel-jumbo>
 <div class="px-4 sm:px-8 max-w-screen-xl mx-auto">
     <div class="py-20">
-        <app-type-checkbox></app-type-checkbox>
+        <div class="text-center" *ngIf="typeList; else noTypes">
+            <app-type-checkbox *ngFor="let typeElement of typeList" [type]="typeElement"></app-type-checkbox>
+        </div>
+        <ng-template class="p-8 text-center" #noTypes>Errore durante il caricamento delle tipologie</ng-template>
     </div>
     <div>
         <app-restaurant-card routerLink="/restaurant-menu"></app-restaurant-card>
