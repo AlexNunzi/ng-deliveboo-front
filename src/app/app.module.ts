@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
+import { RestaurantApiService } from './services/restaurantApi.service';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ShoppingDrawerComponent } from './header/shopping-drawer/shopping-drawer.component';
@@ -28,9 +30,10 @@ import { FoodCardComponent } from './food-card/food-card.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RestaurantApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
