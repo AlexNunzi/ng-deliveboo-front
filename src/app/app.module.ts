@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RestaurantApiService } from './services/restaurantApi.service';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxsModule } from '@ngxs/store';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './partials/header/header.component';
@@ -14,6 +15,7 @@ import { RestaurantCardComponent } from './home/restaurant-card/restaurant-card.
 import { HomeComponent } from './home/home.component';
 import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.component';
 import { FoodCardComponent } from './shared/food-card/food-card.component';
+import { ShopState } from './store/shop.state';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { FoodCardComponent } from './shared/food-card/food-card.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxsModule.forRoot([ShopState])
   ],
   providers: [RestaurantApiService],
   bootstrap: [AppComponent]

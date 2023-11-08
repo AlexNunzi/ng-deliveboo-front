@@ -10,8 +10,8 @@
     <!-- IF -->
     <div class="my-2 pt-1">
         <i class="fa-solid fa-circle-minus text-red-600 text-lg"></i>
-        <span class="px-2 mx-2 border">2</span>
-        <i class="fa-solid fa-circle-plus text-lime-500 text-lg"></i>
+        <span class="px-2 mx-2 border">{{ currentFood.quantity }}</span>
+        <i class="fa-solid fa-circle-plus text-lime-500 text-lg" (click)="addToCart()"></i>
     </div> 
     <!-- ELSE -->
     <!-- 

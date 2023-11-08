@@ -1,6 +1,6 @@
 import { Type } from "./type.model"
 
-export interface GetTypes {
+export interface TypesGetInterface {
     results: Type[]
     success: boolean
   }

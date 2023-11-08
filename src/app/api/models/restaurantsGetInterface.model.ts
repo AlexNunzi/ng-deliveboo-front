@@ -1,6 +1,6 @@
 import { Restaurant } from "./restaurant.model"
 
-export interface GetRestaurants {
+export interface RestaurantsGetInterface {
     results: Restaurant[]
     success: boolean
   }
