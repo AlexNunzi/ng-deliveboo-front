@@ -1,10 +1,10 @@
-<div class="bg-white overflow-hidden rounded-2xl m-2 border">
+<div class="bg-white overflow-hidden rounded-2xl border inline-block w-full">
     <div>
-        <img src="/assets/img/riso-ananas.jpg" alt="...">
+        <img class="h-52 w-full object-cover" src="http://localhost:8000/storage/{{ currentFood.image }}" alt="...">
         <div class="flex justify-center items-center my-1">
-            <h6 class="p-2">Riso all'ananas</h6>
+            <h6 class="p-2">{{ currentFood.name }}</h6>
         </div>
-        <small id="single-price">14.50 €</small>
+        <small id="single-price">{{ currentFood.price }} €</small>
         <!-- <small id="total-price">29.00 €</small> -->
     </div>
     <!-- IF -->

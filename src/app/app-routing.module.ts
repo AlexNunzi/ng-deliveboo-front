@@ -16,7 +16,7 @@ import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.compo
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'restaurant-menu', component: RestaurantMenuComponent}
+  { path: 'restaurant-menu/:slug', component: RestaurantMenuComponent}
 ];
 
 @NgModule({

@@ -1,0 +1,10 @@
+<span class="rounded-lg">
+   <input [id]="'typeCheck-' + type.id" type="checkbox" class="checkbox peer hidden" [value]="type.id" name="type_id[]">
+   <label id="checkTypeLabel" [for]="'typeCheck-' + type.id" class="inline-block mx-2 mb-4 overflow-hidden bg-white text-center rounded-3xl border-4 border-t-gray-900 border-b-gray-500 border-l-gray-900 border-r-gray-500 cursor-pointer hover:scale-105 hover:shadow-lg duration-300 peer-checked:shadow-lg peer-checked:bg-lime-200 peer-checked:border-t-lime-500 peer-checked:border-b-lime-700 peer-checked:border-l-lime-500 peer-checked:border-r-lime-700 peer-checked:scale-105 peer-checked:font-bold">
+      <img *ngIf="type.image; else typeImgPlaceholder" class="h-28 w-40 object-cover" [src]="'http://localhost:8000/storage/' + type.image" alt="...">
+      <ng-template #typeImgPlaceholder>
+         <img class="h-28 w-40 object-cover" src="/assets/img/food-placeholder.png">
+      </ng-template>
+      <h4 class="p-2 flex justify-center items-center grow">{{   type.name }}</h4>
+   </label>
+</span>

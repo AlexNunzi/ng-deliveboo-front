@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { initCarousels } from 'flowbite';
 import { RestaurantApiService } from '../services/restaurantApi.service';
-import { Type } from '../type-checkbox/type.model';
+import { Type } from '../api/models/type.model';
+import { Restaurant } from '../api/models/restaurant.model';
+
 
 @Component({
   selector: 'app-home',
@@ -9,12 +11,14 @@ import { Type } from '../type-checkbox/type.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  typeList: Type[]
+  typeList: Type[];
+  foundRestaurants: Restaurant[];
 
   constructor(private readonly restaurantApiService: RestaurantApiService) {}
 
   ngOnInit(){
     this.getTypeList();
+    this.getFilteredRestaurants();
   }
 
   ngAfterViewInit(){
@@ -29,11 +33,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getFilteredRestaurants(){
-    this.restaurantApiService.getTypedRestaurants([7, 8]).subscribe((data) => console.log(data));
-  }
-
-  getRestaurantMenu(){
-    this.restaurantApiService.getRestaurantMenu("indian-restaurant").subscribe((data) => console.log(data));
+    this.restaurantApiService.getTypedRestaurants([7, 8]).subscribe((data) => {
+      console.log(data);
+      this.foundRestaurants = data.results;
+    });
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Food } from '../../api/models/food.model';
 
 @Component({
   selector: 'app-food-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./food-card.component.scss']
 })
 export class FoodCardComponent {
-
+  @Input() currentFood: Food;
 }
