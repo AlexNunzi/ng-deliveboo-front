@@ -1,22 +1,22 @@
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { TypesGetInterface } from "../api/models/typesGetInterface.model";
-import { GetFilteredRestaurantsAction, GetTypes } from "./shop.actions";
+import { TypesGetInterface } from "../../api/models/typesGetInterface.model";
+import { GetFilteredRestaurantsAction, GetTypes } from "./home.actions";
 import { Injectable } from "@angular/core";
-import { RestaurantApiService } from "../services/restaurantApi.service";
+import { RestaurantApiService } from "../../services/restaurantApi.service";
 import { tap } from "rxjs";
-import { Food } from "../api/models/food.model";
-import { Type } from "../api/models/type.model";
-import { Restaurant } from "../api/models/restaurant.model";
-import { RestaurantsGetInterface } from "../api/models/restaurantsGetInterface.model";
+import { Food } from "../../api/models/food.model";
+import { Type } from "../../api/models/type.model";
+import { Restaurant } from "../../api/models/restaurant.model";
+import { RestaurantsGetInterface } from "../../api/models/restaurantsGetInterface.model";
 
-export interface  ShopStateModel{
+export interface  HomeStateModel{
     types: Type[],
     foods: Food[],
     filteredRestaurants: Restaurant[]
 }
 
-@State<ShopStateModel>({
-    name: "Shop",
+@State<HomeStateModel>({
+    name: "HomeState",
     defaults: {
         types: [],
         foods: [],
@@ -25,17 +25,17 @@ export interface  ShopStateModel{
 })
 
 @Injectable()
-export class ShopState{
+export class HomeState{
 
     constructor(private readonly restaurantApiService: RestaurantApiService) {}
 
     @Selector()
-    static getTypesSelector(state:ShopStateModel){
+    static getTypesSelector(state:HomeStateModel){
         return state.types;
     }
 
     @Action(GetTypes)
-    getTypesStateAction(ctx:StateContext<ShopStateModel>){
+    getTypesStateAction(ctx:StateContext<HomeStateModel>){
         return this.restaurantApiService.getRestaurantTypes().pipe(tap((response: TypesGetInterface) => {
             const state = ctx.getState();
             ctx.setState({
@@ -46,12 +46,12 @@ export class ShopState{
     }
 
     @Selector()
-    static getFilteredRestaurantsSelector(state:ShopStateModel){
+    static getFilteredRestaurantsSelector(state:HomeStateModel){
         return state.filteredRestaurants;
     }
 
     @Action(GetFilteredRestaurantsAction, {cancelUncompleted: true})
-    getFilteredRestaurantsAction(ctx:StateContext<ShopStateModel>, action:GetFilteredRestaurantsAction){
+    getFilteredRestaurantsAction(ctx:StateContext<HomeStateModel>, action:GetFilteredRestaurantsAction){
         return this.restaurantApiService.getFilteredRestaurants(action.restaurantsIds).pipe(tap((response: RestaurantsGetInterface) => {
             ctx.patchState({
                 filteredRestaurants: response.results

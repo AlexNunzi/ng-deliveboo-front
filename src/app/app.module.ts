@@ -15,9 +15,10 @@ import { RestaurantCardComponent } from './home/restaurant-card/restaurant-card.
 import { HomeComponent } from './home/home.component';
 import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.component';
 import { FoodCardComponent } from './shared/food-card/food-card.component';
-import { ShopState } from './store/shop.state';
+import { HomeState } from './home/store/home.state';
 import { RestaurantsTypesFormComponent } from './home/restaurants-types-form/restaurants-types-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 
 @NgModule({
   declarations: [
@@ -37,8 +38,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxsModule.forRoot([ShopState]),
-    ReactiveFormsModule
+    NgxsModule.forRoot([HomeState]),
+    NgxsResetPluginModule.forRoot(),
+    ReactiveFormsModule,
   ],
   providers: [RestaurantApiService],
   bootstrap: [AppComponent]

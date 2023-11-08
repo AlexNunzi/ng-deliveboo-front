@@ -10,15 +10,22 @@ import { Type } from 'src/app/api/models/type.model';
 })
 export class RestaurantsTypesFormComponent implements OnInit, OnChanges, OnDestroy{
   @Output() searchRestaurants: EventEmitter<number[]> = new EventEmitter();
+  @Input() typeList: Type[];
+  
+  checkboxForm: FormGroup = new FormGroup({});
 
   destroy$ = new Subject<void>();
+
+  constructor(private readonly formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.checkboxForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(((() => {
       let checkedIds = Object.keys(this.checkboxForm.value)
       .filter(key => this.checkboxForm.value[key] === true)
       .map(key => +key);
-      this.searchRestaurants.emit(checkedIds);
+      if(checkedIds.length){
+        this.searchRestaurants.emit(checkedIds);
+      }
     })));
   }
 
@@ -37,9 +44,4 @@ export class RestaurantsTypesFormComponent implements OnInit, OnChanges, OnDestr
     this.destroy$.complete();
   }
 
-  @Input() typeList: Type[];
-  
-  checkboxForm: FormGroup = new FormGroup({});
-
-  constructor(private readonly formBuilder: FormBuilder) {}
 }
