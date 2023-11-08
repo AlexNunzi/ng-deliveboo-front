@@ -18,7 +18,7 @@ export class RestaurantApiService {
     }
 
     // Returns the array of restaurants having all types given as argument associated 
-    public getTypedRestaurants(typeIds: number[]): Observable<RestaurantsGetInterface> {
+    public getFilteredRestaurants(typeIds: number[]): Observable<RestaurantsGetInterface> {
         let typeIdsString = "";
         typeIds.forEach((id, index) => typeIdsString += (index == 0 ? `type_id[]=${id}` : `&type_id[]=${id}`));
 

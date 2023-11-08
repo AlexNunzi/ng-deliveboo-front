@@ -13,3 +13,8 @@ export class RemoveFood {
 export class GetTypes {
     static readonly type = '[ShoppingCart] Get Types';
   }
+
+  export class GetFilteredRestaurantsAction {
+    static readonly type = '[ShoppingCart] Get FilteredRestaurants';
+    constructor(public restaurantsIds: number[]) {}
+  }

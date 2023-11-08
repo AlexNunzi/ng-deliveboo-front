@@ -1,22 +1,26 @@
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { TypesGetInterface } from "../api/models/typesGetInterface.model";
-import { GetTypes } from "./shop.actions";
+import { GetFilteredRestaurantsAction, GetTypes } from "./shop.actions";
 import { Injectable } from "@angular/core";
 import { RestaurantApiService } from "../services/restaurantApi.service";
 import { tap } from "rxjs";
 import { Food } from "../api/models/food.model";
 import { Type } from "../api/models/type.model";
+import { Restaurant } from "../api/models/restaurant.model";
+import { RestaurantsGetInterface } from "../api/models/restaurantsGetInterface.model";
 
 export interface  ShopStateModel{
     types: Type[],
-    foods: Food[]
+    foods: Food[],
+    filteredRestaurants: Restaurant[]
 }
 
 @State<ShopStateModel>({
     name: "Shop",
     defaults: {
         types: [],
-        foods: []
+        foods: [],
+        filteredRestaurants: []
     }
 })
 
@@ -27,7 +31,7 @@ export class ShopState{
 
     @Selector()
     static getTypesSelector(state:ShopStateModel){
-        return state.types
+        return state.types;
     }
 
     @Action(GetTypes)
@@ -37,8 +41,22 @@ export class ShopState{
             ctx.setState({
                 ...state,
                 types: response.results
-            })
-        }))
+            });
+        }));
+    }
+
+    @Selector()
+    static getFilteredRestaurantsSelector(state:ShopStateModel){
+        return state.filteredRestaurants;
+    }
+
+    @Action(GetFilteredRestaurantsAction, {cancelUncompleted: true})
+    getFilteredRestaurantsAction(ctx:StateContext<ShopStateModel>, action:GetFilteredRestaurantsAction){
+        return this.restaurantApiService.getFilteredRestaurants(action.restaurantsIds).pipe(tap((response: RestaurantsGetInterface) => {
+            ctx.patchState({
+                filteredRestaurants: response.results
+            });
+        }));
     }
 
 }

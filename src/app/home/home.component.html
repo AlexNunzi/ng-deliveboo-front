@@ -1,13 +1,13 @@
 <app-carousel-jumbo></app-carousel-jumbo>
 <div class="px-4 sm:px-8 max-w-screen-xl mx-auto">
     <div class="py-20">
-        <div class="text-center" *ngIf="typeList?.length; else noTypes">
-            <app-type-checkbox *ngFor="let typeElement of typeList" [type]="typeElement"></app-type-checkbox>
+        <div class="text-center" *ngIf="(getTypes$|async)?.length; else noTypes">
+            <app-restaurants-types-form (searchRestaurants)="getFilteredRestaurants($event)" [typeList]="getTypes$|async"></app-restaurants-types-form>
         </div>
         <ng-template class="p-8 text-center" #noTypes>Errore durante il caricamento delle tipologie</ng-template>
     </div>
-    <div *ngIf="foundRestaurants?.length; else noRestaurant">
-        <app-restaurant-card *ngFor="let restaurantElement of foundRestaurants" [routerLink]="['/restaurant-menu', restaurantElement.slug]" [restaurant]="restaurantElement"></app-restaurant-card>
+    <div *ngIf="(getFilteredRestaurants$|async)?.length; else noRestaurant">
+        <app-restaurant-card *ngFor="let restaurantElement of (getFilteredRestaurants$|async)" [routerLink]="['/restaurant-menu', restaurantElement.slug]" [restaurant]="restaurantElement"></app-restaurant-card>
     </div>
     <ng-template #noRestaurant>Nessun ristorante trovato</ng-template>
 </div>

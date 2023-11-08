@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Type } from 'src/app/api/models/type.model';
 
 
@@ -9,7 +10,13 @@ import { Type } from 'src/app/api/models/type.model';
 })
 export class TypeCheckboxComponent {
   @Input() type: Type;
+  @Input() formGroup: FormGroup;
+  @Output() checked: EventEmitter<void> = new EventEmitter();
 
   constructor() {}
+
+  typeChecked(){
+    this.checked.emit();
+  }
 
 }

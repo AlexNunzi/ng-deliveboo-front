@@ -28,7 +28,6 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy{
 
   getRestaurantMenu(restaurantSlug: string){
     this.restaurantApiService.getRestaurantMenu(restaurantSlug).subscribe((data) => {
-      console.log(data);
       this.foodMenu = data.results.foods;
       this.currentRestaurant = data.results.restaurant;
     });

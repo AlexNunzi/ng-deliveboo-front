@@ -16,6 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.component';
 import { FoodCardComponent } from './shared/food-card/food-card.component';
 import { ShopState } from './store/shop.state';
+import { RestaurantsTypesFormComponent } from './home/restaurants-types-form/restaurants-types-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,13 +30,15 @@ import { ShopState } from './store/shop.state';
     RestaurantCardComponent,
     HomeComponent,
     RestaurantMenuComponent,
-    FoodCardComponent
+    FoodCardComponent,
+    RestaurantsTypesFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxsModule.forRoot([ShopState])
+    NgxsModule.forRoot([ShopState]),
+    ReactiveFormsModule
   ],
   providers: [RestaurantApiService],
   bootstrap: [AppComponent]
