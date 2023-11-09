@@ -1,18 +1,21 @@
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Food } from "../api/models/food.model";
 import { Injectable } from "@angular/core";
-import { AddFoodToCartAction, RemoveFoodFromCartAction } from "./shop.actions";
+import { AddCurrentRestaurantAction, AddFoodToCartAction, RemoveFoodFromCartAction } from "./shop.actions";
+import { StateReset } from "ngxs-reset-plugin";
 
 export interface  ShopStateModel{
     foodsCart: {
         [key: string]: Food,
-    }
+    },
+    currentRestaurantSlug: string
 }
 
 @State<ShopStateModel>({
     name: "ShopState",
     defaults: {
-        foodsCart: {}
+        foodsCart: {},
+        currentRestaurantSlug: undefined
     }
 })
 
@@ -23,30 +26,45 @@ export class ShopState{
         return state.foodsCart;
     }
 
+    @Selector()
+    static getCurrentRestaurantSlug(state:ShopStateModel){
+        return state.currentRestaurantSlug;
+    }
+
     @Action(AddFoodToCartAction)
     addFoodToCartAction(ctx:StateContext<ShopStateModel>, action:AddFoodToCartAction){
-        let store = ctx.getState();
+        let foodsCart = {...ctx.getState().foodsCart};
         const foodToAddSlug: string = action.foodToAdd.slug;
-        if(store.foodsCart[foodToAddSlug]){
-            store.foodsCart[foodToAddSlug].quantity++;
+        if(foodsCart[foodToAddSlug]){
+            foodsCart[foodToAddSlug].quantity++;
         } else {
             action.foodToAdd.quantity = 1;
-            store.foodsCart[foodToAddSlug] = action.foodToAdd;
+            foodsCart[foodToAddSlug] = action.foodToAdd;
+            ctx.dispatch(new AddCurrentRestaurantAction(action.restaurantSlug));
         }
-        // action.foodToAdd.quantity = store.foodsCart[foodToAddSlug].quantity;
-        ctx.setState(store);
+        ctx.patchState({foodsCart});
     }
 
     @Action(RemoveFoodFromCartAction)
     removeFoodFromCartAction(ctx:StateContext<ShopStateModel>, action:RemoveFoodFromCartAction){
-        let store = ctx.getState();
+        let foodsCart = {...ctx.getState().foodsCart};
         const foodToRemoveSlug: string = action.foodToRemove.slug;
-        if(store.foodsCart[foodToRemoveSlug]){
-            store.foodsCart[foodToRemoveSlug].quantity--;
-                if(store.foodsCart[foodToRemoveSlug].quantity <= 0){
-                    delete store.foodsCart[foodToRemoveSlug];
+        if(foodsCart[foodToRemoveSlug]){
+            foodsCart[foodToRemoveSlug].quantity--;
+                if(foodsCart[foodToRemoveSlug].quantity <= 0){
+                    delete foodsCart[foodToRemoveSlug];
                 }
+            if(Object.keys(foodsCart).length === 0){
+                ctx.dispatch(new StateReset(ShopState));
+            }
         }
-        ctx.setState(store);
+        ctx.patchState({foodsCart});
+    }
+
+    @Action(AddCurrentRestaurantAction)
+    addCurrentRestaurantAction(ctx:StateContext<ShopStateModel>, action:AddCurrentRestaurantAction){
+        ctx.patchState({
+            currentRestaurantSlug: action.restaurantSlug
+        });
     }
 }

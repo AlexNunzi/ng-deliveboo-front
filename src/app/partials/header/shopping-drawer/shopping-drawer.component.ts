@@ -15,13 +15,12 @@ export class ShoppingDrawerComponent implements OnInit {
 
   ngOnInit(): void {
       this.foodsCart$.subscribe((foodsCart)=>{
-        console.log("cambio");
         this.cartLength = Object.keys(foodsCart).length;
       });
   }
 
   cartIsEmpty(cart): boolean {
-    return Object.keys(cart).length == 0;
+    return Object.keys(cart).length === 0;
   }
 
 }

@@ -3,7 +3,8 @@ import { Food } from '../../api/models/food.model';
 import { Select, Store } from '@ngxs/store';
 import { AddFoodToCartAction, RemoveFoodFromCartAction } from 'src/app/store/shop.actions';
 import { ShopState } from 'src/app/store/shop.state';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,12 @@ export class FoodCardComponent implements OnInit {
   @Input() currentFood: Food;
   @Select(ShopState.getFoodsCart) foodsCart$:Observable<{[key: string]: Food}>
 
-  constructor(private store: Store) {}
+  destroy$ = new Subject<void>();
+
+  constructor(
+    private store: Store,
+    private readonly activatedRoute: ActivatedRoute
+    ) {}
 
   ngOnInit(): void {
     this.foodsCart$.subscribe(foodsCart => {
@@ -28,8 +34,10 @@ export class FoodCardComponent implements OnInit {
   }
 
   addToCart(){
-    console.log("fire");
-    this.store.dispatch(new AddFoodToCartAction(this.currentFood));
+    this.activatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe((paramMap: ParamMap) => {
+      const restauantSlug = paramMap.get('slug');
+      this.store.dispatch(new AddFoodToCartAction(this.currentFood, restauantSlug));
+    });
   }
 
   removeFromCart(){
