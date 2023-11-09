@@ -12,7 +12,6 @@
          <div *ngFor="let foodElement of foods$|async" class="w-1/4 p-2">
             <app-food-card [currentFood]="foodElement"></app-food-card>
          </div>
-         <!-- <FoodCard :foodObject="food" :restaurantSlug="restaurant.slug" /> -->
       </div>
       <ng-template #emptyMenu>Il menu è vuoto</ng-template>
    </div>

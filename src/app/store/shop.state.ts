@@ -26,28 +26,27 @@ export class ShopState{
     @Action(AddFoodToCartAction)
     addFoodToCartAction(ctx:StateContext<ShopStateModel>, action:AddFoodToCartAction){
         let store = ctx.getState();
-        action.foodToAdd.quantity++;
-        if(store.foodsCart[action.foodToAdd.slug]){
-            store.foodsCart[action.foodToAdd.slug].quantity++;
+        const foodToAddSlug: string = action.foodToAdd.slug;
+        if(store.foodsCart[foodToAddSlug]){
+            store.foodsCart[foodToAddSlug].quantity++;
         } else {
-            store.foodsCart[action.foodToAdd.slug] = {...action.foodToAdd};
+            action.foodToAdd.quantity = 1;
+            store.foodsCart[foodToAddSlug] = action.foodToAdd;
         }
+        // action.foodToAdd.quantity = store.foodsCart[foodToAddSlug].quantity;
         ctx.setState(store);
-        console.log(store.foodsCart);
     }
 
     @Action(RemoveFoodFromCartAction)
     removeFoodFromCartAction(ctx:StateContext<ShopStateModel>, action:RemoveFoodFromCartAction){
         let store = ctx.getState();
-        action.foodToRemove.quantity--;
-        if(store.foodsCart[action.foodToRemove.slug]){
-            if(action.foodToRemove.quantity <= 0){
-                delete store.foodsCart[action.foodToRemove.slug];
-            } else {
-                store.foodsCart[action.foodToRemove.slug].quantity = action.foodToRemove.quantity;
-            }
+        const foodToRemoveSlug: string = action.foodToRemove.slug;
+        if(store.foodsCart[foodToRemoveSlug]){
+            store.foodsCart[foodToRemoveSlug].quantity--;
+                if(store.foodsCart[foodToRemoveSlug].quantity <= 0){
+                    delete store.foodsCart[foodToRemoveSlug];
+                }
         }
         ctx.setState(store);
-        console.log(store.foodsCart);
     }
 }

@@ -13,14 +13,14 @@ import { Observable } from 'rxjs';
 })
 export class FoodCardComponent implements OnInit {
   @Input() currentFood: Food;
-  @Select(ShopState.getFoodsCart) foodsCart$:Observable<any>
+  @Select(ShopState.getFoodsCart) foodsCart$:Observable<{[key: string]: Food}>
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.foodsCart$.subscribe(foodsCart => {
       if(foodsCart[this.currentFood.slug]){
-        this.currentFood.quantity = foodsCart[this.currentFood.slug].quantity;
+        this.currentFood = foodsCart[this.currentFood.slug];
       } else {
         this.currentFood.quantity = 0;
       }

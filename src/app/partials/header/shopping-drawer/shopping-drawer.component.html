@@ -1,4 +1,4 @@
-<div id="shopping-cart-drawer" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
+<div id="shopping-cart-drawer" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-2/5 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
     <h5 id="drawer-right-label" class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">Carrello</h5>
     <button type="button" data-drawer-hide="shopping-cart-drawer" aria-controls="shopping-cart-drawer" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
       <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -6,5 +6,12 @@
       </svg>
       <span class="sr-only">Close menu</span>
     </button>
-    <h4 class="text-center">Il carrello è ancora vuoto, scegli quello che vuoi mangiare oggi!</h4>
+    <div *ngIf="!cartIsEmpty(foodsCart$|async); else emptyCart" class="flex flex-wrap">
+      <div *ngFor="let foodElement of (foodsCart$|async)|keyvalue" class="w-1/2 p-1">
+        <app-food-card [currentFood]="foodElement.value"></app-food-card>
+      </div>
+    </div>
+    <ng-template #emptyCart>
+      <h4 class="text-center p-8">Il carrello è ancora vuoto, scegli quello che vuoi mangiare oggi e torna qui per vedere il riepilogo!</h4>
+    </ng-template>
 </div>
