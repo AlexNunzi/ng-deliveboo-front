@@ -1,6 +1,6 @@
 export class GetTypesAction {
-    static readonly type = '[Restaurant] Get Types';
-  }
+  static readonly type = '[Restaurant] Get Types';
+}
 
 export class GetFilteredRestaurantsAction {
   static readonly type = '[Restaurant] Get FilteredRestaurants';

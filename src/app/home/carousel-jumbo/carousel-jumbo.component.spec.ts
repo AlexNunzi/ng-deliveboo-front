@@ -8,7 +8,7 @@ describe('CarouselJumboComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CarouselJumboComponent]
+      declarations: [CarouselJumboComponent],
     });
     fixture = TestBed.createComponent(CarouselJumboComponent);
     component = fixture.componentInstance;

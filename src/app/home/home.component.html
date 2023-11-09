@@ -1,19 +1,32 @@
 <app-carousel-jumbo></app-carousel-jumbo>
 <div class="px-4 sm:px-8 max-w-screen-xl mx-auto">
-    <div class="py-20">
-        <div class="mb-8">
-            <h3 class="text-center text-lg font-bold">Cosa vuoi mangiare oggi?</h3>
-            <p class="text-center">Puoi scegliere tra le seguenti tipologie...</p>
-        </div>
-        <div class="text-center" *ngIf="(getTypes$|async)?.length; else noTypes">
-            <app-restaurants-types-form (searchRestaurants)="getFilteredRestaurants($event)" [typeList]="getTypes$|async"></app-restaurants-types-form>
-        </div>
-        <ng-template class="p-8 text-center" #noTypes>Errore durante il caricamento delle tipologie</ng-template>
+  <div class="py-20">
+    <div class="mb-8">
+      <h3 class="text-center text-lg font-bold">Cosa vuoi mangiare oggi?</h3>
+      <p class="text-center">Puoi scegliere tra le seguenti tipologie...</p>
     </div>
-    <div *ngIf="(getFilteredRestaurants$|async)?.length; else noRestaurantFound">
-        <app-restaurant-card *ngFor="let restaurantElement of (getFilteredRestaurants$|async)" [routerLink]="['/restaurant-menu', restaurantElement.slug]" [restaurant]="restaurantElement"></app-restaurant-card>
+    <div class="text-center" *ngIf="(getTypes$ | async)?.length; else noTypes">
+      <app-restaurants-types-form
+        (searchRestaurants)="getFilteredRestaurants($event)"
+        [typeList]="getTypes$ | async"
+      ></app-restaurants-types-form>
     </div>
-    <ng-template #noRestaurantFound>
-        <p *ngIf="getSearchCarriedOut$|async" class="text-center">Nessun ristorante trovate, prova ad effettuare una nuova ricerca...</p>
-    </ng-template>
+    <ng-template class="p-8 text-center" #noTypes
+      >Errore durante il caricamento delle tipologie</ng-template
+    >
+  </div>
+  <div
+    *ngIf="(getFilteredRestaurants$ | async)?.length; else noRestaurantFound"
+  >
+    <app-restaurant-card
+      *ngFor="let restaurantElement of getFilteredRestaurants$ | async"
+      [routerLink]="['/restaurant-menu', restaurantElement.slug]"
+      [restaurant]="restaurantElement"
+    ></app-restaurant-card>
+  </div>
+  <ng-template #noRestaurantFound>
+    <p *ngIf="getSearchCarriedOut$ | async" class="text-center">
+      Nessun ristorante trovate, prova ad effettuare una nuova ricerca...
+    </p>
+  </ng-template>
 </div>

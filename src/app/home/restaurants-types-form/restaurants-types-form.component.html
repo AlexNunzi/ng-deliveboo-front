@@ -1,3 +1,7 @@
 <form [formGroup]="checkboxForm">
-    <app-type-checkbox [formGroup]="checkboxForm" *ngFor="let typeElement of typeList" [type]="typeElement"></app-type-checkbox>
+  <app-type-checkbox
+    [formGroup]="checkboxForm"
+    *ngFor="let typeElement of typeList"
+    [type]="typeElement"
+  ></app-type-checkbox>
 </form>

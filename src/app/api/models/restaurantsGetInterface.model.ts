@@ -1,6 +1,6 @@
-import { Restaurant } from "./restaurant.model"
+import { Restaurant } from './restaurant.model';
 
 export interface RestaurantsGetInterface {
-    results: Restaurant[]
-    success: boolean
-  }
+  results: Restaurant[];
+  success: boolean;
+}
