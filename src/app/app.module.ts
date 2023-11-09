@@ -10,7 +10,7 @@ import { HeaderComponent } from './partials/header/header.component';
 import { ShoppingDrawerComponent } from './partials/header/shopping-drawer/shopping-drawer.component';
 import { CarouselJumboComponent } from './home/carousel-jumbo/carousel-jumbo.component';
 import { FooterComponent } from './partials/footer/footer.component';
-import { TypeCheckboxComponent } from './home/type-checkbox/type-checkbox.component';
+import { TypeCheckboxComponent } from './home/restaurants-types-form/type-checkbox/type-checkbox.component';
 import { RestaurantCardComponent } from './home/restaurant-card/restaurant-card.component';
 import { HomeComponent } from './home/home.component';
 import { RestaurantMenuComponent } from './restaurant-menu/restaurant-menu.component';

@@ -1,4 +1,4 @@
-<div *ngIf="currentRestaurant">
+<div *ngIf="currentRestaurant$|async as currentRestaurant">
    <div id="hero" class="h-96 bg-cover bg-center flex justify-center items-center p-4 md:p-20" [ngStyle]="{'background-image': 'url(\'http:\/\/localhost:8000/storage/' + currentRestaurant.image + '\')'}">
       <div id="info-ristorante" class="p-2 md:p-8 text-white rounded-2xl bg-black/75">
          <h3 class="text-2xl mb-4">{{ currentRestaurant.name }}</h3>
@@ -8,12 +8,12 @@
    </div>
 
    <div id="restaurant-foods" class="p-4 justify-center">
-      <div *ngIf="foodMenu?.length; else emptyMenu" class="flex flex-wrap p-4 text-center">
-         <div *ngFor="let foodElement of foodMenu" class="w-1/4 p-2">
+      <div *ngIf="(foods$|async).length; else emptyMenu" class="flex flex-wrap p-4 text-center">
+         <div *ngFor="let foodElement of foods$|async" class="w-1/4 p-2">
             <app-food-card [currentFood]="foodElement"></app-food-card>
          </div>
          <!-- <FoodCard :foodObject="food" :restaurantSlug="restaurant.slug" /> -->
       </div>
       <ng-template #emptyMenu>Il menu è vuoto</ng-template>
    </div>
- </div>
+</div>

@@ -11,12 +11,6 @@ import { Type } from 'src/app/api/models/type.model';
 export class TypeCheckboxComponent {
   @Input() type: Type;
   @Input() formGroup: FormGroup;
-  @Output() checked: EventEmitter<void> = new EventEmitter();
 
   constructor() {}
-
-  typeChecked(){
-    this.checked.emit();
-  }
-
 }

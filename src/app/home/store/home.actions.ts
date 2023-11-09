@@ -1,10 +1,13 @@
-import { Food } from "../../api/models/food.model";
-
-export class GetTypes {
-    static readonly type = '[ShoppingCart] Get Types';
+export class GetTypesAction {
+    static readonly type = '[Restaurant] Get Types';
   }
 
 export class GetFilteredRestaurantsAction {
-  static readonly type = '[ShoppingCart] Get FilteredRestaurants';
+  static readonly type = '[Restaurant] Get FilteredRestaurants';
   constructor(public restaurantsIds: number[]) {}
+}
+
+export class GetRestaurantMenuAction {
+  static readonly type = '[Restaurant] Get RestaurantMenu';
+  constructor(public restaurantSlug: string) {}
 }

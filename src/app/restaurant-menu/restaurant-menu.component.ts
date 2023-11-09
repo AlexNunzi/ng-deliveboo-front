@@ -1,9 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { RestaurantApiService } from '../services/restaurantApi.service';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Food } from '../api/models/food.model';
 import { Restaurant } from '../api/models/restaurant.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { HomeState } from '../home/store/home.state';
+import { GetRestaurantMenuAction } from '../home/store/home.actions';
 
 @Component({
   selector: 'app-restaurant-menu',
@@ -12,12 +14,18 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class RestaurantMenuComponent implements OnInit, OnDestroy{
   @Input() restaurantSlug: string;
-  foodMenu: Food[];
-  currentRestaurant: Restaurant;
+  // foodMenu: Food[];
+  // currentRestaurant: Restaurant;
+
+  @Select(HomeState.getRestaurantMenuSelector) foods$:Observable<Food[]>
+  @Select(HomeState.getRestaurantSelector) currentRestaurant$:Observable<Restaurant>
 
   destroy$ = new Subject<void>();
 
-  constructor(private readonly restaurantApiService: RestaurantApiService, private readonly activatedRoute: ActivatedRoute) {}
+  constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private store: Store
+    ) {}
 
   ngOnInit(){
     this.activatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe((paramMap: ParamMap) => {
@@ -27,10 +35,7 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy{
   }
 
   getRestaurantMenu(restaurantSlug: string){
-    this.restaurantApiService.getRestaurantMenu(restaurantSlug).subscribe((data) => {
-      this.foodMenu = data.results.foods;
-      this.currentRestaurant = data.results.restaurant;
-    });
+    this.store.dispatch(new GetRestaurantMenuAction(restaurantSlug));
   }
 
   ngOnDestroy(): void {
