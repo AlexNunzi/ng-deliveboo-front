@@ -28,6 +28,7 @@ export class FoodCardComponent implements OnInit {
   }
 
   addToCart(){
+    console.log("fire");
     this.store.dispatch(new AddFoodToCartAction(this.currentFood));
   }
 

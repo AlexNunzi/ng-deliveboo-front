@@ -1,22 +1,22 @@
-<div class="flex flex-col justify-between bg-white overflow-hidden rounded-2xl border w-full h-full">
+<div class="flex flex-col justify-between text-center bg-white overflow-hidden rounded-2xl border w-full h-full">
     <div>
         <img class="h-52 w-full object-cover" src="http://localhost:8000/storage/{{ currentFood.image }}" alt="...">
         <div class="flex justify-center items-center my-1">
             <h6 class="p-2">{{ currentFood.name }}</h6>
         </div>
         <small id="single-price">{{ currentFood.price }} €</small>
-        <!-- <small id="total-price">29.00 €</small> -->
+        <small id="total-price">{{ (currentFood.price * currentFood.quantity).toFixed(2)}} €</small>
     </div>
-    <!-- IF -->
-    <div class="my-2 pt-1">
+
+    <div *ngIf="currentFood.quantity > 0; else noAdded" class="mb-4 pt-1">
         <i class="fa-solid fa-circle-minus text-red-600 text-lg cursor-pointer" (click)="removeFromCart()"></i>
         <span class="px-2 mx-2 border">{{ currentFood.quantity }}</span>
         <i class="fa-solid fa-circle-plus text-lime-500 text-lg cursor-pointer" (click)="addToCart()"></i>
     </div> 
-    <!-- ELSE -->
-    <!-- 
-    <div id="btn-cart" class="my-2 mx-auto p-1 w-1/2 bg-yellow-400 rounded-2xl">
-        <i class="fa-brands fa-opencart"></i>
-    </div> 
-    -->
+
+    <ng-template #noAdded id="btn-cart">
+        <div (click)="addToCart()">
+            <i class="fa-brands fa-opencart my-4 mx-auto p-1 w-1/2 bg-yellow-400 rounded-2xl cursor-pointer"></i>
+        </div>
+    </ng-template> 
 </div>
