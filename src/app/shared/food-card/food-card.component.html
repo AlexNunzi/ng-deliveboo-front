@@ -17,15 +17,17 @@
   </div>
 
   <div *ngIf="currentFood.quantity > 0; else noAdded" class="mb-4 pt-1">
-    <i
-      class="fa-solid fa-circle-minus text-red-600 text-lg cursor-pointer"
-      (click)="removeFromCart()"
-    ></i>
+    <button (click)="removeFromCart()">
+      <i
+        class="fa-solid fa-circle-minus text-red-600 text-lg cursor-pointer"
+      ></i>
+    </button>
     <span class="px-2 mx-2 border">{{ currentFood.quantity }}</span>
-    <i
-      class="fa-solid fa-circle-plus text-lime-500 text-lg cursor-pointer"
-      (click)="addToCart()"
-    ></i>
+    <button (click)="addToCart()">
+      <i
+        class="fa-solid fa-circle-plus text-lime-500 text-lg cursor-pointer"
+      ></i>
+    </button>
   </div>
 
   <ng-template #noAdded id="btn-cart">
