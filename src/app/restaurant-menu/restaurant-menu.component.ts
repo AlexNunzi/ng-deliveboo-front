@@ -14,8 +14,6 @@ import { GetRestaurantMenuAction } from '../home/store/home.actions';
 })
 export class RestaurantMenuComponent implements OnInit, OnDestroy{
   @Input() restaurantSlug: string;
-  // foodMenu: Food[];
-  // currentRestaurant: Restaurant;
 
   @Select(HomeState.getRestaurantMenuSelector) foods$:Observable<Food[]>
   @Select(HomeState.getRestaurantSelector) currentRestaurant$:Observable<Restaurant>

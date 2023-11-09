@@ -59,7 +59,7 @@ export class HomeState{
         return state.searchCarriedOut;
     }
 
-    @Action(GetTypesAction)
+    @Action(GetTypesAction, {cancelUncompleted: true})
     getTypesStateAction(ctx:StateContext<HomeStateModel>){
         return this.restaurantApiService.getRestaurantTypes().pipe(tap((response: TypesGetInterface) => {
             const state = ctx.getState();

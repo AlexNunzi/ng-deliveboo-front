@@ -9,5 +9,5 @@ export interface Food {
     slug: string
     created_at?: Date|null
     updated_at?: Date|null
-    quantity?: Number|null
+    quantity: number
   }

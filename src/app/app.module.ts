@@ -19,6 +19,7 @@ import { HomeState } from './home/store/home.state';
 import { RestaurantsTypesFormComponent } from './home/restaurants-types-form/restaurants-types-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
+import { ShopState } from './store/shop.state';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxsModule.forRoot([HomeState]),
+    NgxsModule.forRoot([HomeState, ShopState]),
     NgxsResetPluginModule.forRoot(),
     ReactiveFormsModule,
   ],
