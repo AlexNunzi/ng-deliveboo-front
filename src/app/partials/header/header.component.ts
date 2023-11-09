@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ShopState } from 'src/app/store/shop.state';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-
+  @Select(ShopState.getTotalQuantity) totalQuantity$:Observable<number>
 }

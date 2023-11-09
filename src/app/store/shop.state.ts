@@ -8,14 +8,18 @@ export interface  ShopStateModel{
     foodsCart: {
         [key: string]: Food,
     },
-    currentRestaurantSlug: string
+    currentRestaurantSlug: string,
+    totalPrice: number,
+    totalQuantity: number
 }
 
 @State<ShopStateModel>({
     name: "ShopState",
     defaults: {
         foodsCart: {},
-        currentRestaurantSlug: undefined
+        currentRestaurantSlug: undefined,
+        totalPrice: 0,
+        totalQuantity: 0
     }
 })
 
@@ -29,6 +33,28 @@ export class ShopState{
     @Selector()
     static getCurrentRestaurantSlug(state:ShopStateModel){
         return state.currentRestaurantSlug;
+    }
+
+    @Selector()
+    static getTotalPrice(state:ShopStateModel){
+        let totalPrice = 0;
+        if(Object.keys(state.foodsCart).length){
+            for (const food in state.foodsCart) {
+                totalPrice += (state.foodsCart[food].price * state.foodsCart[food].quantity);
+              }
+        }
+        return totalPrice;
+    }
+
+    @Selector()
+    static getTotalQuantity(state:ShopStateModel){
+        let totalQuantity = 0;
+        if(Object.keys(state.foodsCart).length){
+            for (const food in state.foodsCart) {
+                totalQuantity += state.foodsCart[food].quantity;
+              }
+        }
+        return totalQuantity;
     }
 
     @Action(AddFoodToCartAction)
